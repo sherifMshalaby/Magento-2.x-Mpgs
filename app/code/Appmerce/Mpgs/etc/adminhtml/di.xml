@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="TnsDirectInfoBlock" type="Appmerce\Mpgs\Block\Direct\Info">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item xsi:type="string" name="is_secure_mode">0</item>
+            </argument>
+            <argument name="config" xsi:type="object">TnsDirectConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TnsHostedInfoBlock" type="Appmerce\Mpgs\Block\Direct\Info">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item xsi:type="string" name="is_secure_mode">0</item>
+            </argument>
+            <argument name="config" xsi:type="object">TnsHostedConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TnsHpfInfoBlock" type="Appmerce\Mpgs\Block\Direct\Info">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item xsi:type="string" name="is_secure_mode">0</item>
+            </argument>
+            <argument name="config" xsi:type="object">TnsHpfConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TnsDirectAuthorizeDataBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="operation" xsi:type="string">AuthorizeOperationDataBuilder</item>
+                <item name="card" xsi:type="string">Appmerce\Mpgs\Gateway\Request\Direct\CardDataBuilder</item>
+                <item name="order" xsi:type="string">Appmerce\Mpgs\Gateway\Request\OrderDataBuilder</item>
+                <item name="billing" xsi:type="string">Appmerce\Mpgs\Gateway\Request\BillingDataBuilder</item>
+                <item name="shipping" xsi:type="string">Appmerce\Mpgs\Gateway\Request\ShippingDataBuilder</item>
+                <item name="customer" xsi:type="string">Appmerce\Mpgs\Gateway\Request\CustomerDataBuilder</item>
+                <item name="source" xsi:type="string">Appmerce\Mpgs\Gateway\Request\SourceDataBuilder</item>
+                <item name="version" xsi:type="string">Appmerce\Mpgs\Gateway\Request\VersionDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Vault\Model\Ui\Adminhtml\TokensConfigProvider">
+        <arguments>
+            <argument name="tokenUiComponentProviders" xsi:type="array">
+                <item name="tns_direct" xsi:type="object">Appmerce\Mpgs\Model\Ui\Adminhtml\TokenUiComponentProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
